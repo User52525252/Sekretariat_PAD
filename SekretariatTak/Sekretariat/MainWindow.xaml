@@ -1,0 +1,151 @@
+﻿<Window x:Class="Sekretariat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Sekretariat"
+        mc:Ignorable="d"
+        Title="Aplikacja Sekretariatu™" 
+        Height="600" 
+        Width="960" Background="#FF8D8D8D">
+    <Window.Resources>
+        <local:StringToBitmapImageConverter x:Key="StringToBitmapImageConverter"/>
+        <local:DateTimeToStringConverter x:Key="DateTimeToStringConverter"/>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Background="#FF8D8D8D">
+            <MenuItem Header="_Opcje" FontWeight="Bold" Margin="10,0,10,0">
+                <MenuItem Header="Edytuj _skróty klawiszowe" Click="editShortcuts_Click"/>
+            </MenuItem>
+        </Menu>
+        <ToolBarTray DockPanel.Dock="Top" Background="#FF8D8D8D">
+            <ToolBar FontWeight="Bold">
+                <Button Click="addStudent_Click" FontWeight="Bold" Margin="0,0,10,0">Dodaj ucznia</Button>
+                <Button Click="addTeacher_Click" FontWeight="Bold" Margin="10,0,10,0">Dodaj nauczyciela</Button>
+                <Button Click="addStaff_Click" FontWeight="Bold" Margin="10,0,10,0">Dodaj pracownika obsługi</Button>
+            </ToolBar>
+            <ToolBar FontWeight="Bold">
+                <Button Click="search_Click" FontWeight="Bold" Margin="0,0,10,0">Szukaj</Button>
+                <Button Name="clearSearchBtn" Click="clearSearch_Click" FontWeight="Bold" Margin="10,0,10,0">Wyczyść wyszukiwanie</Button>
+                <Button Click="saveResults_Click" FontWeight="Bold" Margin="10,0,10,0">Raport</Button>
+            </ToolBar>
+        </ToolBarTray>
+        <TabControl Name="tabControl" DockPanel.Dock="Bottom">
+            <TabItem Header="Uczniowie" FontWeight="Bold">
+                <DataGrid Name="dgUczniowie" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" FontWeight="Bold" SelectionChanged="dgUczniowie_SelectionChanged">
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Zdjecie, Converter={StaticResource StringToBitmapImageConverter}}" MaxHeight="150" Margin="10" HorizontalAlignment="Left"/>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Imię" Binding="{Binding Imie}"/>
+                        <DataGridTextColumn Header="Drugie imię" Binding="{Binding DrugieImie}"/>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}"/>
+                        <DataGridTextColumn Header="Nazwisko panieńskie" Binding="{Binding NazwiskoRodowe}"/>
+                        <DataGridTextColumn Header="PESEL" Binding="{Binding Pesel}"/>
+                        <DataGridTextColumn Header="Płeć" Binding="{Binding Plec}"/>
+                        <DataGridTextColumn Header="Imię matki" Binding="{Binding ImieMatki}"/>
+                        <DataGridTextColumn Header="Imię ojca" Binding="{Binding ImieOjca}"/>
+                        <DataGridTextColumn Header="Data urodzenia" Binding="{Binding DataUrodzenia, Converter={StaticResource DateTimeToStringConverter}}"/>
+                        <DataGridTextColumn Header="Klasa" Binding="{Binding Klasa}"/>
+                        <DataGridTextColumn Header="Grupy" Binding="{Binding Grupy}"/>
+                        <DataGridTemplateColumn Header="Edytuj">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="editStudent_Click">Edytuj</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Usuń">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="deleteStudent_Click">Usuń</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Nauczyciele" FontWeight="Bold">
+                <DataGrid Name="dgNauczyciele" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Zdjecie, Converter={StaticResource StringToBitmapImageConverter}}" MaxHeight="150" Margin="10" HorizontalAlignment="Left"/>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Imię" Binding="{Binding Imie}"/>
+                        <DataGridTextColumn Header="Drugie imię" Binding="{Binding DrugieImie}"/>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}"/>
+                        <DataGridTextColumn Header="Nazwisko panieńskie" Binding="{Binding NazwiskoRodowe}"/>
+                        <DataGridTextColumn Header="PESEL" Binding="{Binding Pesel}"/>
+                        <DataGridTextColumn Header="Płeć" Binding="{Binding Plec}"/>
+                        <DataGridTextColumn Header="Imię matki" Binding="{Binding ImieMatki}"/>
+                        <DataGridTextColumn Header="Imię ojca" Binding="{Binding ImieOjca}"/>
+                        <DataGridTextColumn Header="Data urodzenia" Binding="{Binding DataUrodzenia, Converter={StaticResource DateTimeToStringConverter}}"/>
+                        <DataGridTextColumn Header="Wychowawstwo" Binding="{Binding Wychowawstwo}"/>
+                        <DataGridTextColumn Header="Przedmioty" Binding="{Binding Przedmioty}"/>
+                        <DataGridTextColumn Header="Nauczanie" Binding="{Binding Nauczanie}"/>
+                        <DataGridTextColumn Header="Data zatrudnienia" Binding="{Binding DataZatrudnienia, Converter={StaticResource DateTimeToStringConverter}}"/>
+                        <DataGridTemplateColumn Header="Edytuj">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="editTeacher_Click">Edytuj</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Usuń">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="deleteTeacher_Click">Usuń</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Pracownicy obsługi" FontWeight="Bold">
+                <DataGrid Name="dgPracownicy" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Zdjecie, Converter={StaticResource StringToBitmapImageConverter}}" MaxHeight="150" Margin="10" HorizontalAlignment="Left"/>
+                                <TextBlock Text="Opis" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Opis}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Imię" Binding="{Binding Imie}"/>
+                        <DataGridTextColumn Header="Drugie imię" Binding="{Binding DrugieImie}"/>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}"/>
+                        <DataGridTextColumn Header="Nazwisko panieńskie" Binding="{Binding NazwiskoRodowe}"/>
+                        <DataGridTextColumn Header="PESEL" Binding="{Binding Pesel}"/>
+                        <DataGridTextColumn Header="Płeć" Binding="{Binding Plec}"/>
+                        <DataGridTextColumn Header="Imię matki" Binding="{Binding ImieMatki}"/>
+                        <DataGridTextColumn Header="Imię ojca" Binding="{Binding ImieOjca}"/>
+                        <DataGridTextColumn Header="Data urodzenia" Binding="{Binding DataUrodzenia, Converter={StaticResource DateTimeToStringConverter}}"/>
+                        <DataGridTextColumn Header="Etat" Binding="{Binding Etat}"/>
+                        <DataGridTextColumn Header="Opis" Binding="{Binding Opis}"/>
+                        <DataGridTextColumn Header="Data zatrudnienia" Binding="{Binding DataZatrudnienia, Converter={StaticResource DateTimeToStringConverter}}"/>
+                        <DataGridTemplateColumn Header="Edytuj">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="editStaff_Click">Edytuj</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Usuń*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Click="deleteStaff_Click">Usuń</Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
